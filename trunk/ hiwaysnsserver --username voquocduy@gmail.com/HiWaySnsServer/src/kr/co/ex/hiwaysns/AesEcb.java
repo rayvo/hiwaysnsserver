@@ -73,8 +73,8 @@ public class AesEcb
 
 		// byte[] encrypt = cipher.doFinal( AesEcb.padByte( plain ) );
 
-		System.out.println("(" + encrypt.length + ")" + "암호 : "
-				+ AesEcb.toHexString(encrypt));
+		/*System.out.println("(" + encrypt.length + ")" + "암호 : "
+				+ AesEcb.toHexString(encrypt));*/
 
 		return encrypt;
 
@@ -87,8 +87,8 @@ public class AesEcb
 
 		byte[] decrypt = cipherDecrypt.doFinal(encrypt);
 
-		System.out.println("(" + decrypt.length + ")" + "복호 : "
-				+ AesEcb.toHexString(decrypt));
+		/*System.out.println("(" + decrypt.length + ")" + "복호 : "
+				+ AesEcb.toHexString(decrypt));*/
 
 		return decrypt;
 
