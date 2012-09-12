@@ -64,10 +64,10 @@ public class SchedulerServlet extends GenericServlet {
 		        .withIdentity("trigger3", "group1")
 		        .startAt(runTime)
 		        .withSchedule(simpleSchedule()
-		                //.withIntervalInHours(24)
+		                .withIntervalInHours(24)
 		        		//.repeatForever())
 		        		//.withIntervalInMinutes(10)
-		                .withIntervalInMilliseconds(25000)
+		                //.withIntervalInMilliseconds(25000)
 		                .repeatForever())
 		        .build();
 	        
@@ -76,10 +76,10 @@ public class SchedulerServlet extends GenericServlet {
 			// Assign the CronExpression to CronTrigger
 			//cronTrigger.setCronExpression(cexp);
 			// schedule a job with JobDetail and Trigger
-			scheduler.scheduleJob(job, trigger);
+			//RayVo TODO scheduler.scheduleJob(job, trigger);
 
 			// start the scheduler
-			scheduler.start();
+	      //RayVo TODO scheduler.start();
 
 		} catch (Exception e) {
 			e.printStackTrace();

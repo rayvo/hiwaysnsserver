@@ -27,10 +27,6 @@ public class EncryptJob implements Job {
 	public EncryptJob() {
 	}
 
-	//private final String DBServer = "180.148.181.88";
-
-	private final String DBServer = "127.0.0.1";
-
 	private static String HOST = "http://cctvsec.ktict.co.kr/";
 
 	private String cctvTable = "national_cctv";
@@ -44,7 +40,10 @@ public class EncryptJob implements Job {
 		HiWayDbServer db = null;
 		List<String> cctvList = new ArrayList<String>();
 		try {
-			db = new HiWayDbServer(DBServer);
+			//_log.info("Hello Ray: DBServer-" + DBServer);
+			
+			db = new HiWayDbServer(HiWayDbServer.mDbHost);
+			//_log.info("Hello Ray");
 			db.db_open();
 
 			String strSelectQuery = "SELECT cctv_id FROM " + cctvTable;
@@ -54,7 +53,9 @@ public class EncryptJob implements Job {
 				cctvList.add(cctv_id);
 			}
 			db.tran_commit();
+			//_log.info("Hello Ray");
 		} catch (Exception e) {
+			//_log.error(e.toString());
 			flag = false;
 			db.tran_rollback();
 			System.out.println(e.toString());
@@ -86,37 +87,44 @@ public class EncryptJob implements Job {
 			} catch (InvalidKeyException e) {
 				flag = false;
 				e.printStackTrace();
+				_log.error(e.toString());
 			} catch (NoSuchAlgorithmException e) {
 				flag = false;
 				e.printStackTrace();
+				_log.error(e.toString());
 			} catch (NoSuchPaddingException e) {
 				flag = false;
 				e.printStackTrace();
+				_log.error(e.toString());
 			} catch (IllegalBlockSizeException e) {
 				flag = false;
 				e.printStackTrace();
+				_log.error(e.toString());
 			} catch (BadPaddingException e) {
 				flag = false;
 				e.printStackTrace();
+				_log.error(e.toString());
 			} catch (UnsupportedEncodingException e) {
 				flag = false;
 				e.printStackTrace();
+				_log.error(e.toString());
 			} catch (Exception e) {
 				flag = false;
-				e.printStackTrace();
+				e.printStackTrace();				
 			} finally {
 				try {
 					db.db_close();
 				} catch (Exception e) {
+					_log.error(e.toString());
 				} finally {
 				}
 			}
 		}
 		if (flag) {
-			_log.info("123 CCTV URLs have been successfully encrypted at "
+			_log.info("CCTV URLs have been successfully encrypted at "
 					+ new Date());
 		} else {
-			_log.info("456 CCTV URLs Encryption encountered error at " + new Date());
+			_log.info("CCTV URLs Encryption encountered error at " + new Date());
 		}
 
 	}
