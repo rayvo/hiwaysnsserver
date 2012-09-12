@@ -35,55 +35,6 @@
 	
 </script>
 
-
-<%
-	/* try {
-
-		db.db_open();
-
-		String strQuery;
-		String android_client = "Android";
-		String iphone_client = "iPhone";
-
-		int android_ver_code = 0;
-		String android_deployed_date = "";
-		String android_ver_name = "";
-
-		int iphone_ver_code = 0;
-		String iphone_deployed_date = "";
-		String iphone_ver_name = "";
-
-		//Android 사용자
-		strQuery = "SELECT ver_code, ver_name, deployed_date";
-		strQuery = strQuery + " FROM " + strTableVer;
-		strQuery = strQuery + " WHERE is_latest = 1";
-		strQuery = strQuery + " AND is_Android = 1"; // Android
-
-		//System.out.println( "strQuery=" + strQuery );
-		db.exec_query(strQuery);
-
-		while (db.mDbRs.next()) {
-			android_ver_name = db.mDbRs.getString("ver_name");
-			android_ver_code = db.mDbRs.getInt("ver_code");
-			android_deployed_date = db.mDbRs.getString("deployed_date");
-		}
-
-		//iphone 사용자
-		strQuery = "SELECT ver_code, ver_name, deployed_date";
-		strQuery = strQuery + " FROM " + strTableVer;
-		strQuery = strQuery + " WHERE is_latest = 1";
-		strQuery = strQuery + " AND is_Android = 0"; // iphone
-
-		//System.out.println( "strQuery=" + strQuery );
-		db.exec_query(strQuery);
-
-		while (db.mDbRs.next()) {
-			iphone_ver_name = db.mDbRs.getString("ver_name");
-			iphone_ver_code = db.mDbRs.getInt("ver_code");
-			iphone_deployed_date = db.mDbRs.getString("deployed_date");
-		} */
-%>
-
 <body>
 	<table cellpadding="0" cellspacing="0" border="0" width="1050">
 		<!-- 	(시작) 헤더.	-->
