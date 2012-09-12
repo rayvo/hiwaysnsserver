@@ -46,7 +46,18 @@ public class Encrypter {
 		byte[] en = ae.encrypt(plain);
 		//System.out.println("en: " + en);
 
-		String en64 = Base64Coder.encodeLines(en);
+		String en64 = "";
+		
+		
+		boolean isValidURL = false;
+		
+		while (!isValidURL) {
+			en64 = Base64Coder.encodeLines(en);
+			en64 = en64.replace('+','-');
+			en64 = en64.replace('/','_');
+			isValidURL = checkURLSafty(en64);
+		}
+		
 		//System.out.println("en64: " + en64);
 
 		
@@ -62,6 +73,17 @@ public class Encrypter {
 		return en64;
 	}
 
+	private static boolean checkURLSafty(String en64) {
+		
+		if ((en64.indexOf(' ') != -1) || (en64.indexOf('%') != -1)) { 
+			return false;		
+		}
+		else {
+			return true;	
+		}
+		
+	}
+
 	public static String encrypt(String cctvId, String input)	throws NoSuchAlgorithmException, NoSuchPaddingException,InvalidKeyException, IllegalBlockSizeException,
 			BadPaddingException, UnsupportedEncodingException {
 
@@ -75,9 +97,19 @@ public class Encrypter {
 		byte[] en = ae.encrypt(plain);
 		System.out.println("en: " + en);
 
-		String en64 = Base64Coder.encodeLines(en);
-		System.out.println("en64: " + en64);
-
+		/*String en64 = Base64Coder.encodeLines(en);
+		System.out.println("en64: " + en64);*/
+		String en64 = "";
+		
+		
+		boolean isValidURL = false;
+		
+		while (!isValidURL) {
+			en64 = Base64Coder.encodeLines(en);
+			en64 = en64.replace('+','-');
+			en64 = en64.replace('/','_');
+			isValidURL = checkURLSafty(en64);
+		}
 		/*
 		 * byte[] de64 = Base64Coder.decodeLines(en64);
 		 * System.out.println("de64: " + de64);

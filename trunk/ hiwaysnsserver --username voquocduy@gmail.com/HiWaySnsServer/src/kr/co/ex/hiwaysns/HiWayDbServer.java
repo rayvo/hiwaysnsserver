@@ -15,6 +15,7 @@ import java.util.Locale;
 
 public class HiWayDbServer
 {
+	
 	/*
 	 * Constant.
 	 */
@@ -26,24 +27,43 @@ public class HiWayDbServer
 	private	static	String	mDbPasswd	= "";					//DB 접근을 위한 계정의 비밀번호.
 	*/
 	///* 도공 계정.
-	public	static	String	mDbHost		= "127.0.0.1";			//DB 서버의 IP 주소-로칼.
+	//public	static	String	mDbHost		= "127.0.0.1";			//DB 서버의 IP 주소-로칼.
 	//public	static	String	mDbHost		= "192.9.100.79";		//DB 서버의 IP 주소-도공.
 	//public	static	String	mDbHost		= "127.0.0.1";		//중계 서버의 IP 주소-도공.
 	//public	static	String	mDbHost		= "112.216.189.154";		//중계 서버의 IP 주소-도공.
-	private	static	String	mDbName		= "troasis";			//DB 이름.
-	private	static	String	mDbUserID	= "root";				//DB 접근을 위한 계정의 User ID.
-	private	static	String	mDbPasswd	= "cewit123";					//DB 접근을 위한 계정의 비밀번호.
+	//private	static	String	mDbName		= "troasis";			//DB 이름.
+	//private	static	String	mDbUserID	= "root";				//DB 접근을 위한 계정의 User ID.
+	//private	static	String	mDbPasswd	= "cewit123";					//DB 접근을 위한 계정의 비밀번호.
 	//*/
 	// 효성 ITX 계정.
 	//public	static	String	mDbHost		= "127.0.0.1";		//DB 서버의 IP 주소-로칼.
-//	public	static	String	mDbHost		= "180.182.57.147";		//Set 1 DB 서버의 IP 주소-효성ITX.
+	//public	static	String	mDbHost		= "180.182.57.147";		//Set 1 DB 서버의 IP 주소-효성ITX.
 //	public	static	String	mDbHost		= "180.182.57.167";		//Set 2 DB 서버의 IP 주소-효성ITX.
 //	public	static	String	mDbHost		= "180.182.57.168";		//Set 3 DB 서버의 IP 주소-효성ITX.
 //	public	static	String	mDbHost		= "180.182.57.169";		//Set 4 DB 서버의 IP 주소-효성ITX.
-//	private	static	String	mDbName		= "troasis";			//DB 이름.
-//	private	static	String	mDbUserID	= "root";				//DB 접근을 위한 계정의 User ID.
-//	private	static	String	mDbPasswd	= "dgitx00";			//DB 접근을 위한 계정의 비밀번호.
+	/*
+	public	static	String	mDbHost		= "180.182.57.147";		//Set 1 DB 서버의 IP 주소-효성ITX.
+	private	static	String	mDbName		= "troasis";			//DB 이름.
+	private	static	String	mDbUserID	= "root";				//DB 접근을 위한 계정의 User ID.
+	private	static	String	mDbPasswd	= "dgitx00";			//DB 접근을 위한 계정의 비밀번호.
 
+	public	static	String	mDbHost		= "127.0.0.1";		//Set 1 DB 서버의 IP 주소-효성ITX.
+	private	static	String	mDbName		= "troasis";			//DB 이름.
+	private	static	String	mDbUserID	= "root";				//DB 접근을 위한 계정의 User ID.
+	private	static	String	mDbPasswd	= "cewit123";			//DB 접근을 위한 계정의 비밀번호.
+		*/
+	
+	public	static	String	mDbHost		= "128.200.9.88";		//Set 1 DB 서버의 IP 주소-효성ITX.
+	private	static	String	mDbName		= "troasis";			//DB 이름.
+	private	static	String	mDbUserID	= "root";				//DB 접근을 위한 계정의 User ID.
+	private	static	String	mDbPasswd	= "troasis0";			//DB 접근을 위한 계정의 비밀번호.
+	
+	/*
+	public	static	String	mDbHost		= "127.0.0.1";		//Set 1 DB 서버의 IP 주소-효성ITX.
+	private	static	String	mDbName		= "troasis";			//DB 이름.
+	private	static	String	mDbUserID	= "root";				//DB 접근을 위한 계정의 User ID.
+	private	static	String	mDbPasswd	= "cewit123";			//DB 접근을 위한 계정의 비밀번호.
+	*/
 	/*
 	 * Variables.
 	 */
@@ -55,11 +75,10 @@ public class HiWayDbServer
 	public	ResultSet	mDbRs			= null;
 	public	ResultSet	mDbRs2			= null;
 	public	ResultSet	mDbRs3			= null;
-	
-	
 	/*
 	 * Constructors.
-	 */
+	 */	
+
 	public	HiWayDbServer()
 	{
 		//Default DB 서버 지정.
