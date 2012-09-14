@@ -46,6 +46,7 @@ public class Encrypter {
 		byte[] en = ae.encrypt(plain);
 		//System.out.println("en: " + en);
 
+		
 		String en64 = "";
 		
 		
@@ -61,10 +62,10 @@ public class Encrypter {
 		//System.out.println("en64: " + en64);
 
 		
-		  byte[] de64 = Base64Coder.decodeLines(en64);
+		 // byte[] de64 = Base64Coder.decodeLines(en64);
 		  //System.out.println("de64: " + de64);
 		  
-		  byte[] de = ae.decrypt(de64); 
+		  //byte[] de = ae.decrypt(de64); 
 		  //System.out.println("de: " + de);
 		  
 		  //System.out.println("input: " + new String(de));

@@ -76,10 +76,10 @@ public class SchedulerServlet extends GenericServlet {
 			// Assign the CronExpression to CronTrigger
 			//cronTrigger.setCronExpression(cexp);
 			// schedule a job with JobDetail and Trigger
-			//RayVo TODO scheduler.scheduleJob(job, trigger);
+			scheduler.scheduleJob(job, trigger);
 
 			// start the scheduler
-	      //RayVo TODO scheduler.start();
+	      scheduler.start();
 
 		} catch (Exception e) {
 			e.printStackTrace();
