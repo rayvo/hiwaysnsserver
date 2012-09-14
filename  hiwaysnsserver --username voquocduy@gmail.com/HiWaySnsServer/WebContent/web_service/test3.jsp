@@ -217,6 +217,7 @@
 					strQuery = "SELECT time_log, loc_lat, loc_lng, speed";
 					strQuery = strQuery + " FROM " + strTroasisLog;	
 					strQuery = strQuery + " WHERE log_id = " + logs.get(i); 
+
 					strQuery = strQuery + " AND speed>0 ";		
 					strQuery = strQuery + " ORDER BY time_log DESC";
 					
@@ -231,12 +232,6 @@
 						loc_lng2 = (double)(db.mDbRs.getInt("loc_lng"))/1000000.00;
 						loc_speed2 = db.mDbRs.getInt("speed");
 	
-						out.println("<userpath>");
-						out.println("<lat>" + loc_lat2 + " </lat>");
-						out.println("<lng>" + loc_lng2 +  "</lng>");
-						out.println("<speeds>"+loc_speed2 +"</speeds>");
-						out.println("</userpath>");						
-						
 						if(j>0)
 						{
 							double distance_lat = loc_lat2-loc_lat1;
@@ -521,8 +516,19 @@
 				</select>
 				일 &nbsp;&nbsp;&nbsp;
 			</td>
-		    <input type="submit" value="검색하기"/></br></br>
-	   </tr>
+		    <input type="submit" value="검색하기"/></br></br></tr>
+		   
+			<div class="my-box" style="float:left">
+			1. 기본적으로 최근 하루 데이터를 보여줍니다.</br>
+			2. 선택하신 입력방법과 입력하신 키워드와 시간 조건을 동시에 만족하는 경로 데이터들이 보여집니다.</br>
+			3. 현재 IE9, FireFox등 브라우저에서는 정상적으로 작동되나 속도면에서 다소 차이가 있을 수 있습니다.</br>
+			4. 데이터를 읽어오고  그래팩 그림을 그리는데 시간이 오래 걸릴수 있으니 인내심을 갖고 기다려주시기 바랍니다.^_^</br>
+			<right>작성자 연락처: esther@cewit.re.kr</right>
+			</div>
+
+		<td>
+
+		</td> 
 	</form>	
 	<div id="map_canvas" style="position:relative;float:left;width:100%;height:100%;"></div>
 	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>

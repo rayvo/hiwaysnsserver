@@ -67,6 +67,7 @@
 		List<String>	list_cctv_address		= new ArrayList<String>();
 	 	List<Integer>	list_changed_count		= new ArrayList<Integer>();
 		List<String>	list_cctv_url			= new ArrayList<String>();
+		List<Integer>	list_cctv_status		= new ArrayList<Integer>();
 		List<Integer>	list_changed_number		= new ArrayList<Integer>();
 		List<Integer>	list_deleted_number		= new ArrayList<Integer>();
 		List<Integer>	list_deleted_type		= new ArrayList<Integer>();
@@ -209,6 +210,7 @@
 					int cctv_lat = 0;
 					int cctv_lng =0;
 					int road_no =0;
+					int cctv_status = 0;
 					String cctv_loc ="";
 					String cctv_address="";
 					String cctv_url="";
@@ -220,6 +222,7 @@
 					cctv_url		= db.mDbRs.getString( "cctv_url");
 					cctv_loc		= db.mDbRs.getString( "cctv_loc" );
 					cctv_address		= db.mDbRs.getString( "cctv_address");
+					cctv_status 	= db.mDbRs.getInt("status");
 	
 					list_changed_cctv_id.add( cctv_id );
 					list_cctv_url.add( cctv_url );
@@ -229,6 +232,7 @@
 					list_road_no.add( road_no );
 					list_cctv_address.add( cctv_address );
 					list_road_no.add( road_no );
+					list_cctv_status.add(cctv_status);
 	
 				}
 			}
@@ -285,6 +289,7 @@
              <cctv_lng><%=list_cctv_lng.get(i)%></cctv_lng>
              <cctv_lat><%=list_cctv_lat.get(i)%></cctv_lat>
              <url><%=list_cctv_url.get(i)%></url>
+             <cctv_status><%=list_cctv_status.get(i)%></cctv_status>
              <address><%=list_cctv_address.get(i)%></address>
              <changed_number><%=list_changed_type.get(i)%></changed_number>
              <changed_type><%=list_changed_type.get(i)%></changed_type>                                                

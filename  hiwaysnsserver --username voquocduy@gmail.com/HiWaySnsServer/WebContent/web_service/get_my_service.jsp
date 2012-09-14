@@ -11,13 +11,13 @@
 	 * SNS 서버의  IP 주소 목록
 	 */
 	String[]	myServerList	=	{
-										//"dogong.hscdn.com",		//효성 ITX 도메인.
+										"180.148.181.87",		//효성 ITX 도메인.
 /*		
 										"dogong1.hscdn.com",	//효성 ITX 도메인.
 										"dogong2.hscdn.com",	//효성 ITX 도메인.
 										"dogong3.hscdn.com",	//효성 ITX 도메인.
 */
-										"2.2.14.103",		//TODO CEWIT 개발서버.	
+//"2.2.14.103",		//TODO CEWIT 개발서버.	
 										//"211.56.151.87",		//TODO CEWIT 도공 서버.
 										//"61.106.57.234",		//집-고정 IP.
 										//"122.32.134.53",		//집-가변 IP.

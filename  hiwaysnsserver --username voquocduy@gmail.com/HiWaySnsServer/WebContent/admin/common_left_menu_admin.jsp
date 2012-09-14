@@ -127,6 +127,12 @@
 							<a href="../status/index.jsp"><font color="black">- 시스템 운영상태</font></a><br>
 						</td>
 					</tr>
+					<tr valign="top">
+						<td align="right">
+							<br>
+							<a href="../admin/cctv_url_encrypt.jsp"><font color="black">Encrypt CCTV URL</font></a><br>
+						</td>
+					</tr>
 					<!-- 
 					<tr valign="top">
 						<td align="right">
