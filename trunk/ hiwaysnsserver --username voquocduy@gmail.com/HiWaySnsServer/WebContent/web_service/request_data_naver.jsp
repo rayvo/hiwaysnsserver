@@ -18,7 +18,7 @@
 <jsp:useBean id="xmlGen" class="kr.co.ex.hiwaysns.lib.TrOasisXmlProc" scope="page" />
 
 <%
-
+//TODO: For NAVER
 	/*
 	 * FTMS Agent 정보 목록 제공....
 	 */

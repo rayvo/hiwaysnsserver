@@ -68,7 +68,7 @@
 			db.db_open();
 
 			String	strQuery;
-			String	strTableNoticeMsgInfo	= "notification_msg_info";
+			String	strTableNoticeMsgInfo	= "message";
 	 		
 			long	currentTime	= db.getCurrentTimestamp();
 			

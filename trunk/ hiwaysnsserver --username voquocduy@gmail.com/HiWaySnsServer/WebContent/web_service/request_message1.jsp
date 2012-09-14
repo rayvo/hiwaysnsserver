@@ -54,35 +54,25 @@
 
 		List<String> list_message_id 	= new ArrayList<String>();
 		List<String> list_title 		= new ArrayList<String>();
-		List<String> list_content 		= new ArrayList<String>();
 		List<String> list_created_date 	= new ArrayList<String>();
-		List<String> list_expired_date 	= new ArrayList<String>();
-		
+		List<String> list_content 		= new ArrayList<String>();
 		List<Integer> list_is_popup 	= new ArrayList<Integer>();
 
 			String strQuery;
-			String strTableMessage = "message";
+			String strTableNotificationMsginfo = "notification_msg_info";
 			int new_message =0;
 			int last_message = 0;
-			if (last_message_id != null && !last_message_id.equals("")) 
-			{
-				last_message = Integer.parseInt(last_message_id);
-			}	
+			//if (last_message_id != null && !last_message_id.equals("")) 
+			//{
+			//	last_message = Integer.parseInt(last_message_id);
+				
 				db.db_open();
+				long	currentTime	= db.getCurrentTimestamp();
 				
-				
-				
-				Calendar cal = Calendar.getInstance();				
-				String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";	
-				        
-		        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);				
-				
-		        String now = sdf.format(cal.getTime());				
-        
 				strQuery = "SELECT count(*)";
-				strQuery = strQuery + " FROM "+ strTableMessage;
+				strQuery = strQuery + " FROM "+ strTableNotificationMsginfo;
 				strQuery = strQuery + " WHERE message_id > " + last_message;
-				strQuery = strQuery + " AND expired_date > '" + now + "'";
+				strQuery = strQuery + " AND is_valid = 1";
 				db.exec_query(strQuery);
 				
 			    if (db.mDbRs.next()) 
@@ -97,38 +87,40 @@
 			    else
 			    {
 											
-					strQuery = "SELECT message_id, title, content, created_date, expired_date";
-					strQuery = strQuery + " FROM "+ strTableMessage;
+					strQuery = "SELECT message_id, title, content, created_date, is_popup";
+					strQuery = strQuery + " FROM "+ strTableNotificationMsginfo;
 					strQuery = strQuery + " WHERE message_id > " + last_message;
-					strQuery = strQuery + " AND expired_date > '" + now + "'";
+					strQuery = strQuery + " AND is_valid = 1";
 					db.exec_query(strQuery);
 		
 					while (db.mDbRs.next()) 
 					{
 						message_count++;
 						String message_id = "";
+						int is_popup = 0;
 						
 						String title = "";
 						String content = "";
 						String created_date = "";
-						String expired_date = "";
 	
 						message_id = db.mDbRs.getString("message_id");
 						title = db.mDbRs.getString("title");
 						content = db.mDbRs.getString("content");
 						created_date = db.mDbRs
 								.getString("created_date");
-						expired_date = db.mDbRs.getString("expired_date");
+						is_popup = db.mDbRs.getInt("is_popup");
 	
 						list_message_id.add(message_id);
 						list_title.add(title);
 						list_content.add(content);
-						list_created_date.add(created_date);						
-						list_expired_date.add(expired_date);
+						list_created_date.add(created_date);
+						list_is_popup.add(is_popup);
 					}
 			
-				}
+				} 
+
 %>
+
 <?xml version="1.0" encoding="UTF-8"?>
 <troasis>
 	<status_code><%=status_code%></status_code>
@@ -145,15 +137,16 @@
              <title><%=list_title.get(i)%></title>
              <content><%=list_content.get(i)%></content>
              <created_date><%=list_created_date.get(i)%></created_date>
-             <expired_date><%=list_expired_date.get(i)%></expired_date>                                            
+             <is_popup><%=list_is_popup.get(i)%></is_popup>                                            
 		</message>
 
 <%
 	}
 %>
+
+
 	</message_list>
 </troasis>
-
 <%
 	//트랜잭션 Commit.
 		db.tran_commit();

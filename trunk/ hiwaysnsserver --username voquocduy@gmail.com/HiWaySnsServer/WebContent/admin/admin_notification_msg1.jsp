@@ -62,7 +62,90 @@ function js_user_input()
 		self.location.href	= location.pathname + "?" + obj_param;
 		return ( true );
 	}
+}
 
+	
+function mapview() 
+	{
+    var myLatLng = new google.maps.LatLng(37.392918, 127.026438);
+    var myOptions = 
+    {
+      zoom: 12,
+      center: myLatLng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+	 };
+
+		var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		
+		var loc_lat = new Array();
+		var loc_lng = new Array();
+		var loc_speed = new Array();
+		var Max_Count = new Array();
+		var templat,templmg,tempspeed,tempMax,counts;
+		var counts=document.getElementById("users").value;
+		
+		for(i=0;i<counts;i++)
+		{
+	   		tempMax = "maxCount"+i;
+	   		Max_Count[i] = document.getElementById(tempMax).value;
+		}
+		
+		for(i =0;i<counts;i++)
+		{
+			loc_lat[i] = new Array();
+	   		loc_lng[i] = new Array();
+	   		loc_speed[i] = new Array();
+	   		
+	   		for(j=0;j<Max_Count[i];j++)
+	   		{
+   	   		templat = "tempLOClat"+i+"_"+j;
+   	   		templng = "tempLOClng"+i+"_"+j;	
+   	   		tempspeed="tempSpeed"+i+"_"+j;
+   	   		loc_lat[i][j] = document.getElementById(templat).value;
+			loc_lng[i][j] = document.getElementById(templng).value;
+			loc_speed[i][j] = document.getElementById(tempspeed).value;
+	   		}
+		}
+		
+			   		
+		var coordinate = new Array();
+		for(i =0;i<counts;i++)
+		{
+	   		coordinate[i] = new Array();
+	   		for(j=0;j<Max_Count[i];j++)
+	   		{
+	   			coordinate[i][j] = new google.maps.LatLng(loc_lat[i][j],loc_lng[i][j]);
+	   		}
+		}
+		
+		var colors="";
+	for(i =0;i<counts;i++)
+	{
+	   		for(j=0;j<Max_Count[i]-1;j++)
+	   		{
+	   			colors="";
+	   			if(loc_speed[i][j]<40)
+					colors = "#FF0000";
+				else if(loc_speed[i][j]<60)
+					colors = "#FF8C00";
+				else if(loc_speed[i][j]<80)
+					colors = "#9ACD32";
+				else
+					colors = "#6B8E23";
+	   		
+	   			var coordinatePath = [coordinate[i][j],coordinate[i][j+1]];
+
+				var flightPath = new google.maps.Polyline({
+
+				path: coordinatePath,
+				strokeColor: colors,
+				strokeOpacity: 1.0,
+				strokeWeight: 3
+				});
+			
+				flightPath.setMap(map);
+			}
+	   	}
 }
 //-->
 </script> 
@@ -72,14 +155,12 @@ function js_user_input()
 	Calendar	ctoday	= Calendar.getInstance();
 	int		n_year_today	= ctoday.get(Calendar.YEAR);
 	int		n_month_today	= ctoday.get(Calendar.MONTH);
-	//int		n_date_today	= ctoday.get(Calendar.DATE);
-	//int		n_hour_today	= ctoday.get(Calendar.HOUR_OF_DAY);
-	int		n_date_today	= 0;
-	int		n_hour_today	= 0;
-	int		n_minute_today	= 0;
+	int		n_date_today	= ctoday.get(Calendar.DATE);
+	int		n_hour_today	= ctoday.get(Calendar.HOUR_OF_DAY);
+
 	//입력인자 수신.
 	int		n_year_sel = 0, n_month_sel = 0, n_date_sel = 0;
-	int		n_hour_sel	= 0, n_minute_sel	= 0;
+	int		n_hour_sel	= 0;
 	int		i;
 
 	if ( request.getParameter("n_year_sel") != null )
@@ -99,7 +180,6 @@ function js_user_input()
 	}
 	if ( n_date_sel < 1 )	n_date_sel = n_date_today;
 	if ( n_hour_sel < 1 )	n_hour_sel = n_hour_today;
-	if ( n_minute_sel < 1 )	n_minute_sel = n_hour_today;
 %>
 
 <body>
@@ -146,12 +226,14 @@ function js_user_input()
 
 		<div id="doSomething">
 		<b>공지 사항 관리자 메시지</b><br/><br/><br/>
-		제목  : <input type="text" id="title" name="title"></input><br/><br/>
+		클라이언트 화면 한줄 게시  : <input type="text" id="title" name="title"></input><br/><br/>
 		
-		내용 : <textarea id="content" name="content" cols="50"></textarea><br/><br/>
-		
+		게시여부： <select name="is_popup">
+				<option value="yes" selected="selected">게시함</option>
+				<option value="no">게시하지 않음</option>
+				</select><br/><br/><br/>
 		유효기간:
-				<%-- <select class="combo" id="n_year_sel" name="n_year_sel" style="width: 60px; color:#000000; background-color:#ffffff;">
+				<select class="combo" id="n_year_sel" name="n_year_sel" style="width: 60px; color:#000000; background-color:#ffffff;">
 				<% for ( i = n_year_today - 20; i <= n_year_today + 1; i++ ) { %>
 				<option value="<%=i%>" <% if ( n_year_sel == i  ) { %>selected<% } %>><%=i%></option>
 				<% } %>
@@ -163,10 +245,10 @@ function js_user_input()
 				<option value="<%=i%>" <% if ( n_month_sel == i  ) { %>selected<% } %>><%=i%></option>
 				<% } %>
 				</select>
-				월 &nbsp;&nbsp;&nbsp; --%>
+				월 &nbsp;&nbsp;&nbsp;
 					
 				<select class="combo" id="n_date_sel" name="n_date_sel" style="width: 40px; color:#000000; background-color:#ffffff;">
-				<% for ( i = 0; i <= 30; i++ ) { %>
+				<% for ( i = 1; i <= 31; i++ ) { %>
 				<option value="<%=i%>" <% if ( n_date_sel == i  ) { %>selected<% } %>><%=i%></option>
 				<% } %>
 				</select>
@@ -177,19 +259,9 @@ function js_user_input()
 				<option value="<%=i%>" <% if ( n_hour_sel == i  ) { %>selected<% } %>><%=i%></option>
 				<% } %>
 				</select>
-				시 &nbsp;&nbsp;&nbsp;
-				
-				<select class="combo" id="n_minute_sel" name="n_minute_sel" style="width: 40px; color:#000000; background-color:#ffffff;">
-				<% for ( i = 0; i <= 59; i++ ) { %>
-				<option value="<%=i%>" <% if ( n_minute_sel == i  ) { %>selected<% } %>><%=i%></option>
-				<% } %>
-				</select>
-				분 &nbsp;&nbsp;&nbsp;
-				
-				<br/><br/><br/>
-				
+				시 &nbsp;&nbsp;&nbsp;<br/><br/><br/>
 		
-		
+		본문 : <br/><textarea id="content" name="content" cols="43"></textarea><br/><br/>
 		<input type="submit" value="등록하기" />
 		</div><br/>
 		

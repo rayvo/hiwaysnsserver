@@ -18,6 +18,7 @@
 <jsp:useBean id="xmlGen" class="kr.co.ex.hiwaysns.lib.TrOasisXmlProc" scope="page" />
 
 <%
+//TODO: For NAVER
 	int status_code = 0; //작업처리결과 코드
 	String status_msg = ""; //작업처리결과 메시지.
 	String key = "";

@@ -26,40 +26,38 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
-	int is_popup = 0;
 	int is_valid =1;
 	String created_date = "";
+	String expired_time = "";
 	int message_id = 0;
 	
 	String	title	 = request.getParameter("title");
 	String	content = request.getParameter("content");
-	int year = Integer.parseInt(request.getParameter("n_year_sel"));
-	int month = Integer.parseInt(request.getParameter("n_month_sel"));
+	//int year = Integer.parseInt(request.getParameter("n_year_sel"));
+	//int month = Integer.parseInt(request.getParameter("n_month_sel"));
 	int date = Integer.parseInt(request.getParameter("n_date_sel"));
 	int hour = Integer.parseInt(request.getParameter("n_hour_sel"));
-	String	popup = new String(request.getParameter("is_popup").getBytes("ISO8859_1"),"GBK");
+	int minute = Integer.parseInt(request.getParameter("n_minute_sel"));
 	
-	Calendar	calDate	= Calendar.getInstance();
-	calDate.set (year, month, date, hour, 0, 0);
+	//Calendar	calDate	= Calendar.getInstance();
+	//calDate.set (year, month, date, hour, 0, 0);
 
-	long	expire_date	= calDate.getTimeInMillis() / 1000;
+	//long	expire_date	= calDate.getTimeInMillis() / 1000;
 
 	
 	Calendar cal = Calendar.getInstance();  
-	String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
-	SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+	String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	//String EXPIRED_TIME_FORMAT = "yyyyMMddHHmmss";
+	SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 	created_date = sdf.format(cal.getTime());
+	//sdf = new SimpleDateFormat(EXPIRED_TIME_FORMAT);
+	cal.add(Calendar.DATE, date);
+	cal.add(Calendar.HOUR, hour);
+	cal.add(Calendar.MINUTE, minute);
 	
-	if (popup.equals("yes"))
-	{
-		is_popup= 1;				
-	}
-	else
-	{
-		is_popup= 0;				
-	}
-
-	 
+	expired_time = sdf.format(cal.getTime());
+	
+ 
 	for ( int i = 0; i < mServerListDB.length; i++ )
 	{
 		HiWayDbServer	db = new HiWayDbServer( mServerListDB[i] );
@@ -68,13 +66,13 @@
 			db.db_open();
 
 			String	strQuery;
-			String	strTableNoticeMsgInfo	= "notification_msg_info";
+			String	strTableMessage	= "message";
 	 		
 			long	currentTime	= db.getCurrentTimestamp();
 			
 			String query1="";			
 			query1 = "SELECT MAX(message_id)";
-			query1 =  query1 + " FROM " + strTableNoticeMsgInfo;	
+			query1 =  query1 + " FROM " + strTableMessage;	
 			db.exec_query( query1 );			
 			while( db.mDbRs.next() )
 			{
@@ -86,24 +84,20 @@
 						
 			//공지사항 메시지 입력.
 	 		strQuery	= "INSERT";
-			strQuery	= strQuery + " INTO " + strTableNoticeMsgInfo + "(";
+			strQuery	= strQuery + " INTO " + strTableMessage + "(";
 			strQuery	= strQuery + " message_id";
 			strQuery	= strQuery + ", title";
 			strQuery	= strQuery + ", content";
 			strQuery	= strQuery + ", created_date";
-			strQuery	= strQuery + ", expire_date";
-			strQuery	= strQuery + ", is_popup";	
-			strQuery	= strQuery + ", is_valid";
+			strQuery	= strQuery + ", expired_date";			
 			strQuery	= strQuery + ")";
 			
 			strQuery	= strQuery + " VALUES(";
 			strQuery	= strQuery + message_id + "";
 			strQuery	= strQuery + ", '" + title + "'";
 			strQuery	= strQuery + ", '"  + content + "'";
-			strQuery	= strQuery + ", '"+ created_date + "'";
-			strQuery	= strQuery + ", " + expire_date;
-			strQuery	= strQuery + ", " + is_popup;
-			strQuery	= strQuery + ", " + is_valid;
+			strQuery	= strQuery + ", '" + created_date + "'";
+			strQuery	= strQuery + ", '" + expired_time + "'";
 			strQuery	= strQuery + ")";
 			db.exec_update( strQuery );
 			//트랜잭션 Commit.
